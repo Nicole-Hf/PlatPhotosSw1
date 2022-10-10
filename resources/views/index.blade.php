@@ -66,7 +66,8 @@
                         <div class="navigation ">
                             <nav>
                                 <ul class="sf-menu">
-                                    <li><a href="{{ route('register') }}">Comenzar</a></li>
+                                    <li><a href="{{ route('register') }}">Registrate</a></li>
+                                    <li><a href="{{ route('login') }}">Inicia Sesión</a></li>
                                 </ul>
                             </nav>
                             <div class="clear"></div>

@@ -34,6 +34,8 @@ class LoginController extends Controller
             return '/organizador/home';
         } elseif (auth()->user()->type == 'Fotografo') {
             return '/fotografo/home';
+        } elseif (auth()->user()->type == 'Invitado') {
+            return '/invitado/home';
         }
 
         return '/home';

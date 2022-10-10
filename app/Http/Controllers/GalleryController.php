@@ -7,6 +7,8 @@ use App\Models\Muestra;
 use App\Models\Photographer;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Str;
 
 class GalleryController extends Controller
 {
@@ -41,17 +43,31 @@ class GalleryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image' => 'required|image|max:2048'
+            'path' => 'required|image'
         ]);
 
         $fotografo = auth()->user()->id;
 
-        $images = $request->file('image')->store('public');
+        /*$images = $request->file('path')->store('public');
         $url = Storage::url($images);
 
         Muestra::create([
             'title' => $request->title,
             'path' => $url,
+            'fotografo_id' => $fotografo
+        ]);*/
+
+        $nombre = Str::random(10) . $request->file('path')->getClientOriginalName();
+        $ruta = storage_path() . '/app/public/fotografos/' . $nombre;
+        Image::make($request->file('path'))
+            ->resize(1200, null, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            })->save($ruta);
+
+        Muestra::create([
+            'title' => $request->title,
+            'path' => '/storage/fotografos/' . $nombre,
             'fotografo_id' => $fotografo
         ]);
 

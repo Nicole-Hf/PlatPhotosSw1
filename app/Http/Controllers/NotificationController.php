@@ -25,4 +25,11 @@ class NotificationController extends Controller
 
         return redirect()->route('eventos.invitation', $evento);
     }
+
+    public function watch_all_notifications() {
+        $user = auth()->user();
+
+        return view('fotografos.notification', compact('user'));
+    }
+
 }

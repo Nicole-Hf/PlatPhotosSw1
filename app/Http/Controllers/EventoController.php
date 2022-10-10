@@ -70,11 +70,12 @@ class EventoController extends Controller
         $evento->organizer_id = $organizador;
         $evento->save();
 
-        $imagen = Str::slug($evento->tema).'.png';
+        $imagen = Str::slug($evento->title).'.png';
         $filename = storage_path(). '/app/public/codesqr/' .$imagen;
         $name = substr($filename, 43);
+        $route = route('eventos.invitation', $evento->id);
 
-        QrCode::size(400)->generate($evento, $filename);
+        QrCode::size(400)->format('png')->generate($route, $filename);
         $url = Storage::url($name);
         $evento->code_qr = $url;
         $evento->save();
@@ -146,14 +147,18 @@ class EventoController extends Controller
             'organizer_id' => $organizador,
         ]);
 
-        $imagen = Str::slug($evento->tema).'.png';
+        $url = str_replace('storage', 'public', $evento->code_qr);
+        Storage::delete($url);
+
+        $imagen = Str::slug($evento->title).'.png';
         $filename = storage_path(). '/app/public/codesqr/' .$imagen;
         $name = substr($filename, 43);
+        $route = route('eventos.invitation', $evento->id);
 
-        QrCode::size(400)->format('png')->generate($evento, $filename);
-        $url = Storage::url($name);
-        $evento->code_qr = $url;
-        $evento->update();
+        QrCode::size(400)->format('png')->generate($route, $filename);
+        $path = Storage::url($name);
+        $evento->code_qr = $path;
+        $evento->save();
 
         return redirect()->route('eventos.index');
     }

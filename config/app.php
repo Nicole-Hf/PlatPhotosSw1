@@ -182,6 +182,9 @@ return [
 
         //qrcode
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+
+        //Intervention
+        Intervention\Image\ImageServiceProvider::class,
     ],
 
     /*
@@ -197,9 +200,11 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+        'Image' => Intervention\Image\Facades\Image::class
     ])->toArray(),
 
     /*'aliases' => [
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+        'Image' => Intervention\Image\Facades\Image::class
     ]*/
 ];

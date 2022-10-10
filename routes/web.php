@@ -9,6 +9,7 @@ use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\InvitacionController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PhotographerController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'home'])->name('ind
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/fotografo/home', [App\Http\Controllers\HomeController::class, 'homeFotografo'])->name('home.fotografo');
 Route::get('/organizador/home', [App\Http\Controllers\HomeController::class, 'homeOrganizador'])->name('home.organizador');
+Route::get('/invitado/home', [App\Http\Controllers\HomeController::class, 'homeInvitado'])->name('home.invitado');
 
 Auth::routes();
 
@@ -35,6 +37,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('fotografos', PhotographerController::class);
     Route::resource('galleries', GalleryController::class);
     Route::resource('catalogos', CatalogoController::class);
+    Route::resource('profiles', ProfileController::class);
 
     Route::get('evento/{evento_id}', [EventoController::class, 'invitation'])->name('eventos.invitation');
     Route::post('catalogos/{catalogo_id}/store', [CatalogoController::class, 'store'])->name('catalogos.store');
@@ -44,4 +47,5 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('invitacion/{evento_id}/acept', [InvitacionController::class, 'changeStatus'])->name('invitaciones.changeStatus');
     Route::get('mark_all_notifications', [NotificationController::class, 'mark_all_notifications'])->name('mark_all_notifications');
     Route::get('mark_a_notification/{notification_id}/{evento_id}', [NotificationController::class, 'mark_a_notification'])->name('mark_a_notification');
+    Route::get('notifications', [NotificationController::class, 'watch_all_notifications'])->name('watch_all_notifications');
 });

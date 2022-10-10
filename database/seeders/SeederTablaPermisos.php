@@ -20,7 +20,7 @@ class SeederTablaPermisos extends Seeder
         $role1 = Role::create(['name' => 'Administrador']);
         $role2 = Role::create(['name' => 'Organizador']);
         $role3 = Role::create(['name' => 'Fotografo']);
-        $role4 = Role::create(['name' => 'Participante']);
+        $role4 = Role::create(['name' => 'Invitado']);
 
         //Permisos para el Admin
         //crud roles
@@ -57,8 +57,8 @@ class SeederTablaPermisos extends Seeder
 
         //Permisos para el participante
         Permission::firstOrCreate(['name' => 'ver-compra'])->syncRoles([$role1,$role4]);
-        Permission::firstOrCreate(['name' => 'crear-compra'])->syncRoles([$role1,$role4]);
-        Permission::firstOrCreate(['name' => 'editar-compra'])->syncRoles([$role1,$role4]);
+        Permission::firstOrCreate(['name' => 'crear-compra'])->syncRoles([$role4]);
+        Permission::firstOrCreate(['name' => 'editar-compra'])->syncRoles([$role4]);
         Permission::firstOrCreate(['name' => 'borrar-compra'])->syncRoles([$role1]);
 
         Permission::firstOrCreate(['name' => 'subir-perfil'])->syncRoles([$role1,$role4]);

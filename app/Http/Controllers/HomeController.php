@@ -12,11 +12,11 @@ class HomeController extends Controller
      * Create a new controller instance.
      *
      * @return void
+     * public function __construct()
+     * {
+     * $this->middleware('auth');
+     * }
      */
-    /*public function __construct()
-    {
-        $this->middleware('auth');
-    }*/
 
     /**
      * Show the application dashboard.
@@ -44,5 +44,11 @@ class HomeController extends Controller
         $organizador = auth()->user()->id;
         $eventos = Evento::where('organizer_id', $organizador)->get();
         return view('organizadores.dashboard', compact('eventos'));
+    }
+
+    public function homeInvitado() {
+        $organizador = auth()->user()->id;
+        //$eventos = Evento::where('organizer_id', $organizador)->get();
+        return view('invitados.dashboard');
     }
 }

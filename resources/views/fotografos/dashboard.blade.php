@@ -23,9 +23,9 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="form-group">
-                                        <input type="file" name="image" id="" accept="image/*">
+                                        <input type="file" name="path" id="" accept="image/*">
                                         <br>
-                                        @error('image')
+                                        @error('path')
                                             <small class="text-danger">{{$message}}</small>
                                         @enderror
                                     </div>

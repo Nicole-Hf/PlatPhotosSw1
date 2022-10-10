@@ -37,6 +37,8 @@ class RegisterController extends Controller
             return '/organizador/home';
         } elseif (auth()->user()->type == 'Fotografo') {
             return '/fotografo/home';
+        } elseif (auth()->user()->type == 'Invitado') {
+            return '/invitado/home';
         }
 
         return '/home';
@@ -88,6 +90,9 @@ class RegisterController extends Controller
         }
         if ($user->type == 'Fotografo') {
             $user->assignRole('Fotografo');
+        }
+        if ($user->type == 'Invitado') {
+            $user->assignRole('Invitado');
         }
 
         return $user;

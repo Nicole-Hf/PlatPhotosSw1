@@ -79,22 +79,34 @@
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <label for="type" class="col-md-4 col-form-label text-md-end">{{ __('¿Qué quieres hacer?') }}</label>
-                        <div class="form-check form-check-radio form-check-inline">
-                            <label class="form-check-label">
-                                <input class="form-check-input" type="radio" name="type" id="inlineRadio1" value="Organizador"> Crear Eventos
-                                <span class="circle">
-                                    <span class="check"></span>
-                                </span>
-                            </label>
-                        </div>
-                        <div class="form-check form-check-radio form-check-inline">
-                            <label class="form-check-label">
-                                <input class="form-check-input" type="radio" name="type" id="inlineRadio2" value="Fotografo"> Subir Fotos
-                                <span class="circle">
-                                    <span class="check"></span>
-                                </span>
-                            </label>
+                        <div class="form-group">
+                            <label for="type" class="control-label">¿Qué quieres hacer?</label>
+                            <span class="text-danger">*</span>
+                            <br>
+                            <div class="form-check form-check-radio form-check-inline">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="radio" name="type" id="inlineRadio1" value="Organizador"> Crear Eventos
+                                    <span class="circle">
+                                        <span class="check"></span>
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="form-check form-check-radio form-check-inline">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="radio" name="type" id="inlineRadio2" value="Fotografo"> Subir Fotos
+                                    <span class="circle">
+                                        <span class="check"></span>
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="form-check form-check-radio form-check-inline">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="radio" name="type" id="inlineRadio2" value="Invitado"> Ver Eventos
+                                    <span class="circle">
+                                        <span class="check"></span>
+                                    </span>
+                                </label>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-12 mt-4">
