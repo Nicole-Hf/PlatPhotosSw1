@@ -6,8 +6,7 @@
         <li><a href="{{route('watch_all_notifications')}}" class="nav-link nav-link-lg"><span>Notificaciones</span></a></li>
         @endcan
         @can('crear-compra')
-        <li><a href="{{route('home.fotografo')}}" class="nav-link nav-link-lg"><span>Dashboard</span></a></li>
-        <li><a href="{{route('catalogos.index')}}" class="nav-link nav-link-lg"><span>Ver Fotos</span></a></li>
+        <li><a href="{{route('home.invitado')}}" class="nav-link nav-link-lg"><span>Ver Eventos</span></a></li>
         <li><a href="{{route('home.fotografo')}}" class="nav-link nav-link-lg"><span>Ver Seleccionadas</span></a></li>
         <li><a href="{{route('catalogos.index')}}" class="nav-link nav-link-lg"><span>Descargar</span></a></li>
         @endcan

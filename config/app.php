@@ -185,6 +185,8 @@ return [
 
         //Intervention
         Intervention\Image\ImageServiceProvider::class,
+
+        Darryldecode\Cart\CartServiceProvider::class,
     ],
 
     /*
@@ -200,7 +202,8 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
-        'Image' => Intervention\Image\Facades\Image::class
+        'Image' => Intervention\Image\Facades\Image::class,
+        'Cart' => Darryldecode\Cart\Facades\CartFacade::class
     ])->toArray(),
 
     /*'aliases' => [

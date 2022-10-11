@@ -14,7 +14,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ $invitacion->evento->title }}</h5>
                                 <p class="card-text">{{ $invitacion->evento->create_date }}</p>
-                                <a href="{{ route('catalogos.photos', $invitacion->evento->id) }}" class="btn btn-primary">Ir al catálogo</a>
+                                <a href="{{ route('catalogos.photos', $invitacion->evento->catalogo->id) }}" class="btn btn-primary">Ir al catálogo</a>
                             </div>
                         </div>
                     </div>

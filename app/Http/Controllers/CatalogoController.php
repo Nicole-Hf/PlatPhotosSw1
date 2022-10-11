@@ -6,6 +6,7 @@ use App\Models\Catalogo;
 use App\Models\Evento;
 use App\Models\Foto;
 use App\Models\Invitacion;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -44,6 +45,19 @@ class CatalogoController extends Controller
         ])->get();
 
         return view('catalogos.upload', compact('photos', 'catalogo'));
+    }
+
+    /**
+     * Display a listing of the photos.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function catalogos($catalogo_id)
+    {
+        $catalogo = Catalogo::find($catalogo_id);
+        $photos = Foto::where('catalogo_id', $catalogo_id)->get();
+
+        return view('catalogos.cart', compact('photos', 'catalogo'));
     }
 
     /**

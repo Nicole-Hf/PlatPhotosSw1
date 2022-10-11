@@ -26,8 +26,7 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <a href="/fotografos" class="btn btn-primary">Contratar Fotografos</a>
-                                            <a href="#" class="btn btn-primary">Lista de Invitados</a>
-                                            <a href="#" class="btn btn-primary">Compartir Qr</a>
+                                            <a href="{{ route('eventos.download', $evento->id)}}" class="btn btn-primary">Descargar Qr</a>
                                         </div>
                                     </div>
                                 </div>

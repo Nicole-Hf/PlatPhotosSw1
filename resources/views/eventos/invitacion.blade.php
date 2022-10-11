@@ -28,12 +28,16 @@
                                         <p class="card-text">{{ $evento->organizer->name }}</p>
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <a href="#" class="btn btn-primary">Descargar Qr</a>
-                                                <a href="#" class="btn btn-primary">Subir Fotos</a>
+                                                <a href="{{ route('eventos.download', $evento->id)}}" class="btn btn-primary">Descargar Qr</a>
+                                                @can('crear-compra')
+                                                <a href="{{ route('catalogos.invitados', $evento->catalogo->id)}}" class="btn btn-primary">Ver Catálogo</a>
+                                                @endcan
+                                                @can('crear-catalogo')
                                                 <form action="{{ route('invitaciones.changeStatus', $evento->id) }}" method="POST" style="display: inline">
                                                     @csrf
                                                     <button type="submit" class="btn btn-primary">Aceptar</button>
                                                 </form>
+                                                @endcan
                                             </div>
                                         </div>
                                     </div>

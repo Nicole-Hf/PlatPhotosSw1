@@ -152,7 +152,7 @@ class EventoController extends Controller
 
         $imagen = Str::slug($evento->title).'.png';
         $filename = storage_path(). '/app/public/codesqr/' .$imagen;
-        $name = substr($filename, 41);
+        $name = substr($filename, 43);
         $route = route('eventos.invitation', $evento->id);
 
         QrCode::size(400)->format('png')->generate($route, $filename);
@@ -173,5 +173,19 @@ class EventoController extends Controller
     {
         $evento->delete();
         return redirect()->route('eventos.index');
+    }
+
+    /**
+     * Download the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function download($evento_id)
+    {
+        $evento = Evento::findOrFail($evento_id);
+        $image = substr($evento->code_qr, 17);
+        $pathToFile = storage_path("app/public/codesqr/" . $image);
+        return response()->download($pathToFile);
     }
 }

@@ -10,6 +10,7 @@ use App\Http\Controllers\InvitacionController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PhotographerController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,13 +40,23 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('catalogos', CatalogoController::class);
     Route::resource('profiles', ProfileController::class);
 
+    Route::get('eventos/{evento_id}/download', [EventoController::class, 'download'])->name('eventos.download');
     Route::get('evento/{evento_id}', [EventoController::class, 'invitation'])->name('eventos.invitation');
     Route::post('catalogos/{catalogo_id}/store', [CatalogoController::class, 'store'])->name('catalogos.store');
     Route::get('catalogo/{catalogo_id}', [CatalogoController::class, 'photos'])->name('catalogos.photos');
+    Route::get('catalogo/{catalogo_id}/evento', [CatalogoController::class, 'catalogos'])->name('catalogos.invitados');
     Route::get('invitaciones', [InvitacionController::class, 'index'])->name('invitaciones.index');
     Route::post('invitacion/{fotografo_id}', [InvitacionController::class, 'store'])->name('invitaciones.store');
     Route::post('invitacion/{evento_id}/acept', [InvitacionController::class, 'changeStatus'])->name('invitaciones.changeStatus');
     Route::get('mark_all_notifications', [NotificationController::class, 'mark_all_notifications'])->name('mark_all_notifications');
     Route::get('mark_a_notification/{notification_id}/{evento_id}', [NotificationController::class, 'mark_a_notification'])->name('mark_a_notification');
     Route::get('notifications', [NotificationController::class, 'watch_all_notifications'])->name('watch_all_notifications');
+
+    Route::post('/cart-add', [CartController::class, 'add'])->name('cart.add');
+
+Route::get('/cart-checkout',[CartController::class, 'cart'])->name('cart.checkout');
+
+Route::post('/cart-clear',  [CartController::class, 'clear'])->name('cart.clear');
+
+Route::post('/cart-removeitem',  [CartController::class, 'removeitem'])->name('cart.removeitem');
 });

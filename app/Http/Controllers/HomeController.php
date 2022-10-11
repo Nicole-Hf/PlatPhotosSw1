@@ -34,21 +34,23 @@ class HomeController extends Controller
         return view('index', compact('files'));
     }
 
-    public function homeFotografo() {
+    public function homeFotografo()
+    {
         $fotografo = auth()->user()->id;
         $files = Muestra::where('fotografo_id', $fotografo)->get();
         return view('fotografos.dashboard', compact('files'));
     }
 
-    public function homeOrganizador() {
+    public function homeOrganizador()
+    {
         $organizador = auth()->user()->id;
         $eventos = Evento::where('organizer_id', $organizador)->get();
         return view('organizadores.dashboard', compact('eventos'));
     }
 
-    public function homeInvitado() {
-        $organizador = auth()->user()->id;
-        //$eventos = Evento::where('organizer_id', $organizador)->get();
-        return view('invitados.dashboard');
+    public function homeInvitado()
+    {
+        $eventos = Evento::all();
+        return view('invitados.dashboard', compact('eventos'));
     }
 }

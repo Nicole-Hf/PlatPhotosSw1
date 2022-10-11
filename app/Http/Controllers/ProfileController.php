@@ -30,7 +30,9 @@ class ProfileController extends Controller
      */
     public function create()
     {
-        return view('invitados.upload');
+        $invitado = auth()->user()->id;
+        $files = Perfil::where('invitado_id', $invitado)->get();
+        return view('invitados.upload', compact('files'));
     }
 
     /**
@@ -70,7 +72,7 @@ class ProfileController extends Controller
                 ],
                 [
                   'name' => 'photo',
-                  'contents' => $perfil->path,
+                  'contents' => route($perfil->path),
                   'filename' => $perfil->path,
                   'headers'  => [
                     'Content-Type' => '<Content-type header>'
