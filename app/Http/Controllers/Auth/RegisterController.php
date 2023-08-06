@@ -77,12 +77,16 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $foto = $data['photo'];
+        $ruta = $foto->store('profiles', 'public');
+
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'phone' => $data['phone'],
             'password' => Hash::make($data['password']),
-            'type' => $data['type']
+            'type' => $data['type'],
+            'photo' => $ruta
         ]);
 
         if ($user->type == 'Organizador') {

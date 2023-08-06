@@ -36,27 +36,29 @@
                                             <label for="address">Dirección/Lugar</label>
                                             <input type="text" name="address" class="form-control">
                                         </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <div class="form-group">
-                                            <label for="create_date">Fecha del evento</label>
-                                            <input type="date" name="create_date" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <div class="form-group">
-                                            <label for="create_time">Hora del evento</label>
-                                            <input type="time" name="create_time" class="form-control">
-                                        </div>
-                                    </div>
+                                    </div>                                   
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-floating">
                                             <label for="description">Descripción</label>
                                             <textarea class="form-control" name="description" style="height: 100px"></textarea>
                                         </div>
-                                        <br>
-                                        <button type="submit" class="btn btn-primary">Guardar</button>
                                     </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="col-xs-12 col-sm-6 col-md-6">
+                                        <div class="form-group">
+                                            <label for="create_date">Fecha del evento</label>
+                                            <input type="date" name="create_date" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-6">
+                                        <div class="form-group">
+                                            <label for="create_time">Hora del evento</label>
+                                            <input type="time" name="create_time" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Guardar</button>
                             </form>
                         </div>
                     </div>

@@ -72,7 +72,7 @@ class EventoController extends Controller
 
         $imagen = Str::slug($evento->title).'.png';
         $filename = storage_path(). '/app/public/codesqr/' .$imagen;
-        $name = substr($filename, 43);
+        $name = substr($filename, 67);
         $route = route('eventos.invitation', $evento->id);
 
         QrCode::size(400)->format('png')->generate($route, $filename);
