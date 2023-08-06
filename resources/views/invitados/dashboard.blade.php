@@ -6,7 +6,7 @@
             <h3 class="page__heading"></h3>
         </div>
         <div class="section-body">
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
@@ -22,7 +22,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <div class="row">
                 @foreach ($eventos as $evento)
                 <div class="col-sm-3">

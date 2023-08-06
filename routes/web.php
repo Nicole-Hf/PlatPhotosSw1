@@ -31,7 +31,7 @@ Route::get('/invitado/home', [App\Http\Controllers\HomeController::class, 'homeI
 
 Auth::routes();
 
-Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['auth']], function () {
     Route::resource('roles', RolController::class);
     Route::resource('usuarios', UserController::class);
     Route::resource('eventos', EventoController::class);
@@ -54,9 +54,9 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::post('/cart-add', [CartController::class, 'add'])->name('cart.add');
 
-Route::get('/cart-checkout',[CartController::class, 'cart'])->name('cart.checkout');
+    Route::get('/cart-checkout', [CartController::class, 'cart'])->name('cart.checkout');
 
-Route::post('/cart-clear',  [CartController::class, 'clear'])->name('cart.clear');
+    Route::post('/cart-clear', [CartController::class, 'clear'])->name('cart.clear');
 
-Route::post('/cart-removeitem',  [CartController::class, 'removeitem'])->name('cart.removeitem');
+    Route::post('/cart-removeitem', [CartController::class, 'removeitem'])->name('cart.removeitem');
 });

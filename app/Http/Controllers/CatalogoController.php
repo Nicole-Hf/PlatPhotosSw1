@@ -97,11 +97,11 @@ class CatalogoController extends Controller
 
         $nombre = Str::random(10) . $request->file('path')->getClientOriginalName();
         $ruta = storage_path() . '/app/public/eventos/' . $nombre;
-        $img = Image::make($request->file('path'))
+        Image::make($request->file('path'))
             ->resize(1200, null, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->insert(public_path('watermark.png', 'center', 10, 10))->save($ruta);
+            })->insert(public_path('watermark.png'), 'center', 10, 10)->save($ruta);
 
         Foto::create([
             'price' => $request->price,

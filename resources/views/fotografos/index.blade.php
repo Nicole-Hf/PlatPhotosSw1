@@ -1,5 +1,24 @@
 @extends('layouts.app')
 
+@section('css')
+<style>
+    /* Estilos para hacerla responsive y ocultar columnas */
+    @media (max-width: 767px) {
+
+        .table th:nth-child(3),
+        /* Cambia el número por el índice de la columna que quieras ocultar */
+        .table td:nth-child(3) {
+            display: none;
+        }
+        .table th:nth-child(4),
+        /* Cambia el número por el índice de la columna que quieras ocultar */
+        .table td:nth-child(4) {
+            display: none;
+        }
+    }
+</style>
+@endsection
+
 @section('content')
     <section class="section">
         <div class="section-header">
