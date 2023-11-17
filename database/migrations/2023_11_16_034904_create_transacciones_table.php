@@ -13,15 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('catalogos', function (Blueprint $table) {
+        Schema::create('transacciones', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->unsignedBigInteger('evento_id');
+            $table->string('shippingMethod');
+            $table->string('phone');
+            $table->string('paymentMethod');
+            $table->float('amount');
+            $table->date('paymentDate');
+            $table->unsignedBigInteger('compra_id');
             $table->timestamps();
 
             $table->softDeletes();
 
-            $table->foreign('evento_id')->on('eventos')->references('id')->onDelete('cascade');
+            $table->foreign('compra_id')->on('compras')->references('id')->onDelete('cascade');
         });
     }
 
@@ -32,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('catalogos');
+        Schema::dropIfExists('transacciones');
     }
 };

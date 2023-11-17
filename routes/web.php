@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CatalogoController;
+use App\Http\Controllers\TransaccionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RolController;
@@ -41,6 +42,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('profiles', ProfileController::class);
 
     Route::get('eventos/{evento_id}/download', [EventoController::class, 'download'])->name('eventos.download');
+    Route::get('eventos/{evento_id}/invitados', [EventoController::class, 'addGuests'])->name('eventos.invitados');
+    Route::post('eventos/invitados/{evento_id}', [EventoController::class, 'storeGuest'])->name('eventos.storeguest');
     Route::get('evento/{evento_id}', [EventoController::class, 'invitation'])->name('eventos.invitation');
     Route::post('catalogos/{catalogo_id}/store', [CatalogoController::class, 'store'])->name('catalogos.store');
     Route::get('catalogo/{catalogo_id}', [CatalogoController::class, 'photos'])->name('catalogos.photos');
@@ -52,11 +55,16 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('mark_a_notification/{notification_id}/{evento_id}', [NotificationController::class, 'mark_a_notification'])->name('mark_a_notification');
     Route::get('notifications', [NotificationController::class, 'watch_all_notifications'])->name('watch_all_notifications');
 
-    Route::post('/cart-add', [CartController::class, 'add'])->name('cart.add');
+    Route::get('/shop', [CartController::class, 'shop'])->name('shop');
+    Route::get('/cart', [CartController::class, 'cart'])->name('cart.index');
+    Route::post('/add', [CartController::class, 'add'])->name('cart.store');
+    Route::post('/update', [CartController::class, 'update'])->name('cart.update');
+    Route::post('/remove', [CartController::class, 'remove'])->name('cart.remove');
+    Route::post('/clear', [CartController::class, 'clear'])->name('cart.clear');
 
-    Route::get('/cart-checkout', [CartController::class, 'cart'])->name('cart.checkout');
-
-    Route::post('/cart-clear', [CartController::class, 'clear'])->name('cart.clear');
-
-    Route::post('/cart-removeitem', [CartController::class, 'removeitem'])->name('cart.removeitem');
+    Route::get('/checkout', [TransaccionController::class, 'index']);
+    Route::post('/process-checkout', [TransaccionController::class, 'process'])->name('process.checkout');
+    Route::get('/confirmation/{orderid}', [TransaccionController::class, 'showConfirmation'])->name('order.confirmation');
 });
+
+

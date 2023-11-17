@@ -5,22 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Catalogo extends Model
+class Assit extends Model
 {
     use HasFactory;
 
-    protected $table = 'catalogos';
+    protected $table = 'assits';
     protected $fillable = [
-        'title',
-        'category',
         'evento_id',
+        'guest_id',
+        'status',
     ];
 
     public function evento() {
         return $this->belongsTo(Evento::class, 'evento_id');
     }
 
-    public function fotos() {
-        return $this->hasMany(Foto::class, 'catalogo_id');
+    public function invitado() {
+        return $this->belongsTo(Guest::class, 'guest_id');
     }
 }

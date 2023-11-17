@@ -31,4 +31,8 @@ class Evento extends Model
     public function invitaciones() {
         return $this->hasMany(Invitacion::class, 'evento_id');
     }
+
+    public function asistencias() {
+        return $this->hasMany(Assit::class, 'evento_id');
+    }
 }

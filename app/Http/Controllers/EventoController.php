@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Catalogo;
+use App\Models\Guest;
 use Illuminate\Http\Request;
 use App\Models\Evento;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -82,6 +83,7 @@ class EventoController extends Controller
 
         Catalogo::create([
             'title' => $evento->title,
+            'category' => $request->categoria,
             'evento_id' => $evento->id,
         ]);
 
@@ -187,5 +189,30 @@ class EventoController extends Controller
         $image = substr($evento->code_qr, 17);
         $pathToFile = storage_path("app/public/codesqr/" . $image);
         return response()->download($pathToFile);
+    }
+
+    public function addGuests($evento_id) 
+    {
+        $evento = Evento::find($evento_id);
+        $invitados = Guest::where('evento_id', $evento_id)->get();
+
+        return view('eventos.addGuest', compact('evento', 'invitados'));
+    }
+
+    public function storeGuest(Request $request, $eventoId)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+        ]);
+
+        $invitado = new Guest();
+        $invitado->name = $request->input('name');
+        $invitado->email = $request->input('email');
+        $invitado->evento_id = $eventoId;
+        $invitado->save();
+
+        return redirect()->route('eventos.invitados', $eventoId)
+            ->with('success', 'Invitado agregado exitosamente.');
     }
 }

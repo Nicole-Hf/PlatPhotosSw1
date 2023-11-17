@@ -3,44 +3,65 @@
 namespace App\Http\Controllers;
 
 use App\Models\Foto;
+use App\Models\Catalogo;
 use Illuminate\Http\Request;
-//use Cart;
-use Darryldecode\Cart\Cart;
 
 class CartController extends Controller
 {
+    public function shop($catalogo_id)
+    {
+        $catalogo = Catalogo::find($catalogo_id);
+        $photos = Foto::where('catalogo_id', $catalogo_id)->get();
+        
+        return view('shop', compact('photos', 'catalogo'));
+    }
 
-    public function add(Request $request){
+    public function cart()
+    {
+        $cartCollection = \Cart::getContent();
+        //dd($cartCollection);
+        return view('cart')->withTitle('E-COMMERCE STORE | CART')->with(['cartCollection' => $cartCollection]);
+    }
 
-        $producto = Foto::find($request->producto_id);
+    public function remove(Request $request)
+    {
+        \Cart::remove($request->id);
+        return redirect()->route('cart.index')->with('success_msg', 'Item is removed!');
+    }
 
-        Cart::add(
-            $producto->id,
-            $producto->price,
-            1,
-            array("urlfoto"=>$producto->path)
-
+    public function add(Request $request)
+    {
+        \Cart::add(
+            array(
+                'id' => $request->id,
+                'name' => $request->name,
+                'price' => $request->price,
+                'quantity' => $request->quantity,
+                'attributes' => array(
+                    'image' => $request->img,
+                    'slug' => $request->slug
+                )
+            )
         );
-        return back()->with('success',"¡se ha agregado con éxito al carrito!");
 
+        return redirect()->route('cart.index')->with('success_msg', 'Cart is Updated!');
     }
 
-    public function cart(){
-
-        return view('checkout');
+    public function update(Request $request){
+        \Cart::update($request->id,
+            array(
+                'quantity' => array(
+                    'relative' => false,
+                    'value' => $request->quantity
+                ),
+        ));
+        return redirect()->route('cart.index')->with('success_msg', 'Cart is Updated!');
     }
 
-    public function removeitem(Request $request) {
-        //$producto = Producto::where('id', $request->id)->firstOrFail();
-        Cart::remove([
-        'id' => $request->id,
-        ]);
-        return back()->with('success',"Producto eliminado con éxito de su carrito.");
+    public function clear()
+    {
+        \Cart::clear();
+        
+        return redirect()->route('cart.index')->with('success_msg', 'Car is cleared!');
     }
-
-    public function clear(){
-        Cart::clear();
-        return back()->with('success',"The shopping cart has successfully beed added to the shopping cart!");
-    }
-
 }

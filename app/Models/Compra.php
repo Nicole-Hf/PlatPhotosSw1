@@ -12,15 +12,22 @@ class Compra extends Model
     protected $table = 'compras';
     protected $fillable = [
         'total',
-        'order_date',
+        'estado',
         'invitado_id'
     ];
 
-    public function invitado() {
+    public function invitado()
+    {
         return $this->belongsTo(User::class, 'invitado_id');
     }
 
-    public function detalles() {
+    public function orderDetails()
+    {
         return $this->hasMany(Detalle::class, 'compra_id');
+    }
+
+    public function transaction()
+    {
+        return $this->hasOne(Transaccion::class, 'compra_id');
     }
 }

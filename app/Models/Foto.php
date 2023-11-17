@@ -11,7 +11,9 @@ class Foto extends Model
 
     protected $table = 'fotos';
     protected $fillable = [
-        'path',
+        'name',
+        'slug',
+        'image',
         'price',
         'catalogo_id',
         'fotografo_id',

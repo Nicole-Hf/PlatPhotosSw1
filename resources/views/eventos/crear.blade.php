@@ -57,6 +57,16 @@
                                             <input type="time" name="create_time" class="form-control">
                                         </div>
                                     </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-6">
+                                        <div class="form-group">
+                                            <label for="categoria">Categoría</label>
+                                            <select name="categoria" class="form-control">
+                                                <option value="publicas">Públicas</option>
+                                                <option value="solo_participantes">Solo participantes</option>
+                                                <option value="solo_invitado">Solo el invitado</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Guardar</button>
                             </form>

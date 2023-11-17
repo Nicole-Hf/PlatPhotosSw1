@@ -14,7 +14,7 @@
                                 @foreach ($photos as $photo)
                                     <div class="col-4">
                                         <div class="card border-dark mb-3">
-                                            <img src="{{asset($photo->path)}}" alt="">
+                                            <img src="{{asset($photo->image)}}" alt="">
                                             <div class="card-footer">
                                                 <form class="form-inline" action="#" method="POST">
                                                     @method('DELETE')

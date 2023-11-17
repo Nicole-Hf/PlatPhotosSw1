@@ -13,17 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('compras', function (Blueprint $table) {
+        Schema::create('guests', function (Blueprint $table) {
             $table->id();
-            $table->float('total');
-            $table->date('order_date');
-            $table->unsignedBigInteger('invitado_id');
+            $table->string('name');
+            $table->string('email');
+            $table->string('status')->default('Pendiente');
+            $table->unsignedBigInteger('evento_id');
             $table->timestamps();
 
             $table->softDeletes();
 
-            $table->foreign('invitado_id')->on('users')->references('id')->onDelete('cascade');
-
+            $table->foreign('evento_id')->on('eventos')->references('id')->onDelete('cascade');
         });
     }
 
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('compras');
+        Schema::dropIfExists('guests');
     }
 };

@@ -55,9 +55,11 @@ class CatalogoController extends Controller
     public function catalogos($catalogo_id)
     {
         $catalogo = Catalogo::find($catalogo_id);
-        $photos = Foto::where('catalogo_id', $catalogo_id)->get();
+        //$photos = Foto::where('catalogo_id', $catalogo_id)->get();
+        $products = Foto::where('catalogo_id', $catalogo_id)->get();
 
-        return view('catalogos.cart', compact('photos', 'catalogo'));
+        //return view('catalogos.cart', compact('photos', 'catalogo'));
+        return view('shop', compact('products', 'catalogo'));
     }
 
     /**
@@ -85,17 +87,9 @@ class CatalogoController extends Controller
         ]);
 
         $fotografo = auth()->user()->id;
-        /*$images = $request->file('path')->store('public');
-        $url = Storage::url($images);
-
-        Foto::create([
-            'price' => $request->price,
-            'path' => $url,
-            'fotografo_id' => $fotografo,
-            'catalogo_id' => $catalogo->id
-        ]);*/
 
         $nombre = Str::random(10) . $request->file('path')->getClientOriginalName();
+        $slug = $slug = Str::slug($request->file('path')->getClientOriginalName());
         $ruta = storage_path() . '/app/public/eventos/' . $nombre;
         Image::make($request->file('path'))
             ->resize(1200, null, function ($constraint) {
@@ -104,8 +98,10 @@ class CatalogoController extends Controller
             })->insert(public_path('watermark.png'), 'center', 10, 10)->save($ruta);
 
         Foto::create([
+            'name' => $nombre,
+            'slug' => $slug,
             'price' => $request->price,
-            'path' => '/storage/eventos/' . $nombre,
+            'image' => '/storage/eventos/' . $nombre,
             'fotografo_id' => $fotografo,
             'catalogo_id' => $catalogo->id
         ]);
@@ -125,29 +121,6 @@ class CatalogoController extends Controller
         $catalogo = Catalogo::where('evento_id', $evento->id)->first();
 
         return view('catalogos.upload', compact('catalogo'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**

@@ -13,15 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('perfiles', function (Blueprint $table) {
+        Schema::create('catalogos', function (Blueprint $table) {
             $table->id();
-            $table->string('path');
-            $table->unsignedBigInteger('invitado_id');
+            $table->string('title')->nullable();
+            $table->string('category');
+            $table->unsignedBigInteger('evento_id');
             $table->timestamps();
 
             $table->softDeletes();
 
-            $table->foreign('invitado_id')->on('users')->references('id')->onDelete('cascade');
+            $table->foreign('evento_id')->on('eventos')->references('id')->onDelete('cascade');
         });
     }
 
@@ -32,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('perfiles');
+        Schema::dropIfExists('catalogos');
     }
 };

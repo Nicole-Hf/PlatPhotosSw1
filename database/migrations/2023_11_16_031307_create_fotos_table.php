@@ -15,7 +15,9 @@ return new class extends Migration
     {
         Schema::create('fotos', function (Blueprint $table) {
             $table->id();
-            $table->string('path');
+            $table->string('name')->unique();
+            $table->string('slug')->unique();
+            $table->string('image');
             $table->float('price');
             $table->unsignedBigInteger('catalogo_id');
             $table->unsignedBigInteger('fotografo_id');
