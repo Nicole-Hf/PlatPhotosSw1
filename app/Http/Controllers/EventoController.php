@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\InvitadoCreado;
 use App\Models\Catalogo;
 use App\Models\Guest;
 use Illuminate\Http\Request;
@@ -9,6 +10,7 @@ use App\Models\Evento;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
 
 class EventoController extends Controller
 {
@@ -211,6 +213,18 @@ class EventoController extends Controller
         $invitado->email = $request->input('email');
         $invitado->evento_id = $eventoId;
         $invitado->save();
+
+        $evento = Evento::where('id', $eventoId)->first();
+
+        $invitacion = new \stdClass();
+        $invitacion->name = $invitado->name;
+        $invitacion->title = $evento->title;
+        $invitacion->address = $evento->address;
+        $invitacion->date = $evento->create_date;
+        $invitacion->qr = $evento->code_qr;
+        $invitacion->eventoId = $invitado->evento_id;
+
+        Mail::to($request->email)->send(new InvitadoCreado($invitacion));
 
         return redirect()->route('eventos.invitados', $eventoId)
             ->with('success', 'Invitado agregado exitosamente.');
