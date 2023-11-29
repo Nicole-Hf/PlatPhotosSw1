@@ -239,7 +239,8 @@ class EventoController extends Controller
         ]);
 
         // Generar código QR único para el invitado con información del evento y URL
-        $codigoQR = QrCode::format('png')->size(200)->generate($contenidoQR);
+        //$codigoQR = QrCode::format('png')->size(200)->generate($contenidoQR);
+        $codigoQR = QrCode::size(400)->format('png')->generate($contenidoQR, $archivoQR);
 
         // Almacenar el código QR en el sistema de archivos (puedes personalizar la ubicación)
         Storage::put("public/{$archivoQR}", $codigoQR);
