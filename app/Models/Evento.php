@@ -33,6 +33,6 @@ class Evento extends Model
     }
 
     public function asistencias() {
-        return $this->hasMany(Assit::class, 'evento_id');
+        return $this->hasMany(Assitant::class, 'eventoId');
     }
 }

@@ -17,13 +17,13 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email');
-            $table->string('status')->default('Pendiente');
-            $table->unsignedBigInteger('evento_id');
+            //$table->string('status')->default('Pendiente');
+            //$table->unsignedBigInteger('evento_id');
             $table->timestamps();
 
-            $table->softDeletes();
+            /* $table->softDeletes();
 
-            $table->foreign('evento_id')->on('eventos')->references('id')->onDelete('cascade');
+            $table->foreign('evento_id')->on('eventos')->references('id')->onDelete('cascade'); */
         });
     }
 

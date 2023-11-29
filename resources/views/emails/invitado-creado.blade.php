@@ -105,7 +105,7 @@
                     Asistencia</a>
             </div>
             <div class="event-image">
-                <img src="{{ asset($invitacion->qr) }}" class="img-fluid rounded-start" alt="...">
+                <img src="{{url($invitacion->qr)}}" class="img-fluid rounded-start" alt="...">
             </div>
         </div>
         <div class="footer">

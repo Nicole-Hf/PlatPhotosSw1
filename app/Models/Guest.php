@@ -19,6 +19,6 @@ class Guest extends Model
 
     public function assits() 
     {
-        return $this->hasMany(Assit::class, 'guest_id');
+        return $this->hasMany(Assitant::class, 'guestId');
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\InvitadoCreado;
+use App\Models\Assitant;
 use App\Models\Catalogo;
 use App\Models\Guest;
 use Illuminate\Http\Request;
@@ -73,15 +74,15 @@ class EventoController extends Controller
         $evento->organizer_id = $organizador;
         $evento->save();
 
-        $imagen = Str::slug($evento->title).'.png';
-        $filename = storage_path(). '/app/public/codesqr/' .$imagen;
-        $name = substr($filename, 67);
-        $route = route('eventos.invitation', $evento->id);
+        /*  $imagen = Str::slug($evento->title).'.png';
+         $filename = storage_path(). '/app/public/codesqr/' .$imagen;
+         $name = substr($filename, 67);
+         $route = route('eventos.invitation', $evento->id);
 
-        QrCode::size(400)->format('png')->generate($route, $filename);
-        $url = Storage::url($name);
-        $evento->code_qr = $url;
-        $evento->save();
+         QrCode::size(400)->format('png')->generate($route, $filename);
+         $url = Storage::url($name);
+         $evento->code_qr = $url;
+         $evento->save(); */
 
         Catalogo::create([
             'title' => $evento->title,
@@ -151,7 +152,7 @@ class EventoController extends Controller
             'organizer_id' => $organizador,
         ]);
 
-        $url = str_replace('storage', 'public', $evento->code_qr);
+        /* $url = str_replace('storage', 'public', $evento->code_qr);
         Storage::delete($url);
 
         $imagen = Str::slug($evento->title).'.png';
@@ -162,7 +163,7 @@ class EventoController extends Controller
         QrCode::size(400)->format('png')->generate($route, $filename);
         $path = Storage::url($name);
         $evento->code_qr = $path;
-        $evento->save();
+        $evento->save(); */
 
         return redirect()->route('eventos.index');
     }
@@ -193,10 +194,10 @@ class EventoController extends Controller
         return response()->download($pathToFile);
     }
 
-    public function addGuests($evento_id) 
+    public function addGuests($evento_id)
     {
         $evento = Evento::find($evento_id);
-        $invitados = Guest::where('evento_id', $evento_id)->get();
+        $invitados = Assitant::where('eventoId', $evento->id)->get();
 
         return view('eventos.addGuest', compact('evento', 'invitados'));
     }
@@ -211,20 +212,56 @@ class EventoController extends Controller
         $invitado = new Guest();
         $invitado->name = $request->input('name');
         $invitado->email = $request->input('email');
-        $invitado->evento_id = $eventoId;
+        //$invitado->evento_id = $eventoId;
         $invitado->save();
 
         $evento = Evento::where('id', $eventoId)->first();
+
+        // Agregar nombre del evento al archivo QR
+        $archivoQR = "codigos_qr/{$evento->title}_{$invitado->id}.png";
+
+        //Construir la URL de comprobación de asistencia
+        $urlComprobacion = route('eventos.invitation', ['evento_id' => $evento->id]);
+        //$urlComprobacion = route('comprobar.asistencia', ['eventoId' => $eventoId, 'invitadoId' => $invitado->id]);
+
+        // Agregar información del evento y URL al contenido del QR
+        $contenidoQR = json_encode([
+            'evento' => [
+                'titulo' => $evento->title,
+                'direccion' => $evento->address,
+                'fecha' => $evento->create_date,
+            ],
+            'invitado' => [
+                'nombre' => $invitado->name,
+                'id' => $invitado->id,
+            ],
+            'urlComprobacion' => $urlComprobacion,
+        ]);
+
+        // Generar código QR único para el invitado con información del evento y URL
+        $codigoQR = QrCode::format('png')->size(200)->generate($contenidoQR);
+
+        // Almacenar el código QR en el sistema de archivos (puedes personalizar la ubicación)
+        Storage::put("public/{$archivoQR}", $codigoQR);
+
+        $asistencia = new Assitant();
+        $asistencia->eventoId = $eventoId;
+        $asistencia->guestId = $invitado->id;
+        $asistencia->codeqr = $archivoQR;
+        $asistencia->save();
 
         $invitacion = new \stdClass();
         $invitacion->name = $invitado->name;
         $invitacion->title = $evento->title;
         $invitacion->address = $evento->address;
         $invitacion->date = $evento->create_date;
-        $invitacion->qr = $evento->code_qr;
-        $invitacion->eventoId = $invitado->evento_id;
+        $invitacion->qr = $archivoQR;
+        $invitacion->eventoId = $evento->id;
 
-        Mail::to($request->email)->send(new InvitadoCreado($invitacion));
+        //Mail::to($request->email)->send(new InvitadoCreado($invitacion));
+        // Enviar correo con código QR adjunto
+        Mail::to($request->email)->send(new InvitadoCreado($invitacion, $archivoQR, $urlComprobacion));
+
 
         return redirect()->route('eventos.invitados', $eventoId)
             ->with('success', 'Invitado agregado exitosamente.');
