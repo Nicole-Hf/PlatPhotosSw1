@@ -60,9 +60,13 @@
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
                         Login
-                    </button>
+                    </button> 
                 </div>
             </form>
         </div>
+    </div>
+    <div class="mt-5 text-muted text-center">
+        No tienes una cuenta ?
+        <a href="{{ route('register') }}">Crea una cuenta</a>
     </div>
 @endsection

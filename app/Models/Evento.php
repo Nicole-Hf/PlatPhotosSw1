@@ -16,7 +16,6 @@ class Evento extends Model
         'description',
         'create_date',
         'create_time',
-        'code_qr',
         'organizer_id',
     ];
 

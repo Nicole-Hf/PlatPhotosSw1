@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->date('create_date');
             $table->time('create_time');
-            $table->string('code_qr')->nullable();
             $table->unsignedBigInteger('organizer_id');
             $table->timestamps();
 

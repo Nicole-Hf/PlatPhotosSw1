@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Events\InvitacionEvent;
+use App\Models\Assitant;
 use App\Models\Contratado;
 use App\Models\Evento;
+use App\Models\Guest;
 use App\Models\Invitacion;
 use App\Models\User;
 use App\Notifications\InvitacionNotification;
@@ -79,5 +81,28 @@ class InvitacionController extends Controller
         $invitacion->save();
 
         return redirect()->route('invitaciones.index');
+    }
+
+    public function showInvitationToUser($asistantId) {
+        $asistencia = Assitant::find($asistantId);
+
+        return view('invitados.asistencia', compact('asistencia'));
+    }
+
+    public function markAsistencia($asistenciaId)
+    {
+        $asistencia = Assitant::find($asistenciaId);
+        $evento = Evento::find($asistencia->eventoId);
+        $invitado = Guest::find($asistencia->guestId);
+
+        $invitacion = Assitant::where([
+            'eventoId' => $evento->id,
+            'guestId' => $invitado->id,
+        ])->first();
+
+        $invitacion->status = 'Aceptado';
+        $invitacion->save();
+
+        return redirect()->route('eventos.index');
     }
 }

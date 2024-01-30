@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('catalogos', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->nullable();
             $table->string('category');
             $table->unsignedBigInteger('evento_id');
             $table->timestamps();

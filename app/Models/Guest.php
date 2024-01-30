@@ -13,8 +13,6 @@ class Guest extends Model
     protected $fillable = [
         'name',
         'email',
-        'status',
-        'evento_id'
     ];
 
     public function assits() 

@@ -25,7 +25,7 @@ class InvitadoCreado extends Mailable
     public function build()
     {
         return $this->view('emails.invitado-creado')
-                    ->attach(storage_path("app/public/{$this->archivoQR}"), [
+                    ->attach(public_path("{$this->archivoQR}"), [
                         'as' => 'codigo_qr.png',
                         'mime' => 'image/png',
                     ])

@@ -59,7 +59,7 @@ class User extends Authenticatable
     }
 
     public function muestras() {
-        return $this->hasMany(Muestra::class, 'fotografo_id');
+        return $this->hasMany(Portafolio::class, 'fotografo_id');
     }
 
     public function compras() {

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Portafolio;
 use Illuminate\Http\Request;
-use App\Models\Muestra;
 use App\Models\Photographer;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Facades\Storage;
@@ -20,7 +20,7 @@ class GalleryController extends Controller
     public function index()
     {
         $fotografo = auth()->user()->id;
-        $files = Muestra::where('fotografo_id', $fotografo)->get();
+        $files = Portafolio::where('fotografo_id', $fotografo)->get();
         return view('fotografos.dashboard', compact('files'));
     }
 
@@ -65,7 +65,7 @@ class GalleryController extends Controller
                 $constraint->upsize();
             })->save($ruta);
 
-        Muestra::create([
+        Portafolio::create([
             'title' => $request->title,
             'path' => '/storage/fotografos/' . $nombre,
             'fotografo_id' => $fotografo
@@ -82,7 +82,7 @@ class GalleryController extends Controller
      */
     public function destroy($file)
     {
-        $file = Muestra::where('id', $file)->first();
+        $file = Portafolio::where('id', $file)->first();
         $url = str_replace('storage', 'public', $file->path);
         Storage::delete($url);
 

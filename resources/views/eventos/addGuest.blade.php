@@ -43,11 +43,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($invitados as $invitado)
+                            @forelse ($invitados as $item)
                                 <tr>
-                                    <td>{{ $invitado->name }}</td>
-                                    <td>{{ $invitado->email }}</td>
-                                    <td>{{ $invitado->status }}</td>
+                                    <td>{{ $item->invitado->name }}</td>
+                                    <td>{{ $item->invitado->email }}</td>
+                                    <td>{{ $item->status }}</td>
                                 </tr>
                             @empty
                                 <tr>

@@ -10,9 +10,9 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="row g-0">
-                            <div class="col-md-4">
+                            {{-- <div class="col-md-4">
                                 <img src="{{ asset($evento->code_qr) }}" class="img-fluid rounded-start" alt="...">
-                            </div>
+                            </div> --}}
                             <div class="col-md-8">
                                 <div class="card-body">
                                     <h5 class="card-title">Fecha del Evento</h5>
@@ -27,7 +27,7 @@
                                         <div class="col-sm-12">
                                             <a href="/fotografos" class="btn btn-primary">Contratar Fotografos</a>
                                             <a href="{{ route('eventos.invitados', $evento->id)}}" class="btn btn-primary">Lista de Invitados</a>
-                                            <a href="{{ route('eventos.download', $evento->id)}}" class="btn btn-primary">Descargar Qr</a>
+                                            {{-- <a href="{{ route('eventos.download', $evento->id)}}" class="btn btn-primary">Descargar Qr</a> --}}
                                         </div>
                                     </div>
                                 </div>

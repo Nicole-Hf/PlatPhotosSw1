@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Evento;
-use App\Models\Muestra;
+use App\Models\Portafolio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
@@ -33,7 +33,7 @@ class PhotographerController extends Controller
         $organizador = auth()->user()->id;
         $eventos = Evento::where('organizer_id', $organizador)->get();
         $fotografo = User::find($id);
-        $files = Muestra::where('fotografo_id', $fotografo->id)->get();
+        $files = Portafolio::where('fotografo_id', $fotografo->id)->get();
         return view('fotografos.show', compact('files', 'fotografo', 'eventos'));
     }
 }

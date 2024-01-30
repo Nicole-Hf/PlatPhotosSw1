@@ -65,6 +65,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/checkout', [TransaccionController::class, 'index']);
     Route::post('/process-checkout', [TransaccionController::class, 'process'])->name('process.checkout');
     Route::get('/confirmation/{orderid}', [TransaccionController::class, 'showConfirmation'])->name('order.confirmation');
+
+    Route::get('/invitacion/{id}', [InvitacionController::class, 'showInvitationToUser'])->name('ver-invitacion');
+    Route::post('invitacion/{id}/asistencia', [InvitacionController::class, 'markAsistencia'])->name('invitaciones.markAsistencia');
 });
 
 

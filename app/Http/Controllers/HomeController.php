@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Evento;
-use App\Models\Muestra;
+use App\Models\Portafolio;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -30,14 +30,14 @@ class HomeController extends Controller
 
     public function home()
     {
-        $files = Muestra::paginate(25);
+        $files = Portafolio::paginate(25);
         return view('index', compact('files'));
     }
 
     public function homeFotografo()
     {
         $fotografo = auth()->user()->id;
-        $files = Muestra::where('fotografo_id', $fotografo)->get();
+        $files = Portafolio::where('fotografo_id', $fotografo)->get();
         return view('fotografos.dashboard', compact('files'));
     }
 

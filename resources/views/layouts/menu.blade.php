@@ -15,10 +15,10 @@
         <i class=" fas fa-home"></i><span>Dashboard</span>
     </a>
     <a class="nav-link" href="/eventos">
-        <i class=" fas fa-building"></i><span>Ver Eventos</span>
+        <i class=" fas fa-building"></i><span>Gestionar Eventos</span>
     </a>
     <a class="nav-link" href="/fotografos">
-        <i class=" fas fa-camera"></i><span>Ver Fotógrafos</span>
+        <i class=" fas fa-camera"></i><span>Explorar Fotógrafos</span>
     </a>
     @endcan
 </li>

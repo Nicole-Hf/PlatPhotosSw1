@@ -49,7 +49,6 @@
                                     <th style="color:#fff;">Dirección</th>
                                     <th style="color:#fff;">Fecha</th>
                                     <th style="color:#fff;">Hora</th>
-                                    <th style="color:#fff;">Código Qr</th>
                                     <th style="color:#fff;">Acciones</th>
                                 </thead>
                                 <tbody>
@@ -61,15 +60,12 @@
                                             <td>{{ $evento->create_date }}</td>
                                             <td>{{ $evento->create_time }}</td>
                                             <td>
-                                                <div class="img-container">
-                                                    <img style="height: 170px; width: 147px;" src="{{asset($evento->code_qr)}}" alt="">
-                                                </div>
-                                            </td>
-                                            <td>
                                                 <form action="{{ route('eventos.destroy', $evento->id) }}" method="POST">
                                                     @can('editar-evento')
-                                                        <a class="btn btn-warning"
-                                                            href="{{ route('eventos.show', $evento->id) }}">Ver</a>
+                                                        {{-- <a class="btn btn-warning"
+                                                            href="{{ route('eventos.show', $evento->id) }}">Ver</a> --}}
+                                                        <a href="{{ route('eventos.invitados', $evento->id)}}" class="btn btn-warning">Invitados</a>
+                                                        <a href="/fotografos" class="btn btn-primary">Fotografos</a>
                                                     @endcan
                                                     @can('editar-evento')
                                                         <a class="btn btn-info"
