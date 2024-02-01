@@ -199,13 +199,15 @@ class EventoController extends Controller
         $asistencia->save();
 
         $imagen = Str::slug($evento->title . $invitado->name) . '2.png';
-        $filename = storage_path() . '/app/public/codesqr/' . $imagen;
-        $name = substr($filename, 67);
+        //$filename = storage_path() . '/app/public/codesqr/' . $imagen;
+        //$name = substr($filename, 67);
         // Update url with user id and event id
+        $filename = storage_path('app/public/codesqr/' . $imagen);
+        $url = 'storage/codesqr/' . $imagen;
         $route = route('ver-invitacion', $asistencia->id);
 
         $qr = QrCode::size(400)->format('png')->generate($route);
-        $url = Storage::url($name);
+        //$url = Storage::url($name);
         file_put_contents($filename, $qr);
         $urlComprobacion = route('eventos.download', ['evento_id' => $evento->id]);
 
