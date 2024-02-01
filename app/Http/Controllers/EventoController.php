@@ -220,6 +220,7 @@ class EventoController extends Controller
         $invitacion->title = $evento->title;
         $invitacion->address = $evento->address;
         $invitacion->date = $evento->create_date;
+        $invitacion->eventTime = $evento->create_time;
         $invitacion->qr = $url;
         $invitacion->eventoId = $evento->id;
 

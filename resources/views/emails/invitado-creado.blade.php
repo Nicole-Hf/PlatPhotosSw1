@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -8,109 +8,100 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
-            color: #555;
+            background-color: #f8f8f8;
+            color: #444;
         }
 
         .container {
+            width: 100%;
             max-width: 600px;
-            margin: 20px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin: 20px;
         }
 
         .header {
+            background-color: #3498db;
+            color: #fff;
+            padding: 20px;
             text-align: center;
-            margin-bottom: 20px;
         }
 
-        .header h1 {
-            color: #007bff;
-            margin: 0;
-        }
-
-        .content {
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+        .greeting {
+            text-align: center;
+            padding: 20px;
         }
 
         .event-details {
-            flex-grow: 1;
+            padding: 20px;
         }
 
-        .event-details p {
-            font-size: 18px;
-            line-height: 1.6;
-            margin-bottom: 10px;
+        .event-details h2 {
+            color: #3498db;
         }
 
-        .event-image {
-            flex-shrink: 0;
-            margin-left: 20px;
+        .qr-code {
+            text-align: center;
+            margin-top: 20px;
         }
 
-        .cta-button {
-            display: inline-block;
-            padding: 12px 24px;
-            background-color: #007bff;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 4px;
-            transition: background-color 0.3s ease;
-        }
-
-        .cta-button:hover {
-            background-color: #0056b3;
+        .qr-code img {
+            max-width: 100%;
+            height: auto;
         }
 
         .footer {
             text-align: center;
-            font-size: 14px;
-            margin-top: 20px;
-            color: #777;
+            padding: 20px;
+            color: #888;
         }
 
-        .unsubscribe-link {
-            color: #007bff;
+        .footer a {
+            color: #3498db;
             text-decoration: none;
-        }
-
-        .unsubscribe-link:hover {
-            text-decoration: underline;
+            font-weight: bold;
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <div class="header">
-            <h1>Invitación a {{ $invitacion->title }}</h1>
-        </div>
-        <div class="content">
+        <div class="card">
+            <div class="header">
+                <h1>¡Invitación a Evento Especial!</h1>
+            </div>
+
+            <div class="greeting">
+                <p>¡Hola {{ $invitacion->name }}!</p>
+                <p>¡Es un placer invitarte a nuestro evento especial! Esperamos que puedas unirte a nosotros para
+                    compartir momentos inolvidables.</p>
+            </div>
+
             <div class="event-details">
-                <div class="card">
-                    <p>¡Hola {{ $invitacion->name }}!</p>
-                    <p>Estás invitado a nuestro evento especial. Nos encantaría que te unieras a nosotros para compartir
-                        momentos inolvidables.</p>
-                    <p>Fecha: {{ $invitacion->date }}</p>
-                    <p>Ubicación: {{ $invitacion->address }}</p>
-                </div>
-                <a href="{{ route('eventos.invitation', $invitacion->eventoId) }}" class="cta-button">Confirmar
-                    Asistencia</a>
+                <h2>Detalles del Evento</h2>
+                <p><strong>Fecha:</strong> {{ $invitacion->date }}</p>
+                <p><strong>Lugar:</strong> {{ $invitacion->address }}</p>
+                <p><strong>Hora:</strong>{{ $invitacion->eventTime }}</p>
             </div>
-            <div class="event-image">
-                <img src="{{url($invitacion->qr)}}" class="img-fluid rounded-start" alt="...">
+
+            <div class="qr-code">
+                <h2>Presenta este código QR para ingresar al evento:</h2>
+                <!-- Coloca aquí la imagen del código QR generada -->
+                <img src="{{ url($invitacion->qr) }}" class="img-fluid rounded-start" alt="...">
             </div>
         </div>
+
         <div class="footer">
-            <p>Este correo electrónico fue enviado desde PhotoFolio. Si no deseas recibir más correos, puedes <a
-                    href="#" class="unsubscribe-link">cancelar la suscripción aquí</a>.</p>
+            <p>¡Gracias por ser parte de este evento especial! Esperamos verte allí.</p>
+            <p>Para más detalles, visita nuestro <a href="http://18.216.173.51/">sitio web</a>.</p>
         </div>
     </div>
 </body>

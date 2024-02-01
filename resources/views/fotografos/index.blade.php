@@ -49,7 +49,7 @@
                                                 <a class="btn btn-success" href="#">Editar</a>
                                                 <a class="btn btn-danger" href="#">Borrar</a>
                                                 @endcan
-                                                <a class="btn btn-info" href="{{ route('fotografos.show', $photographer->id) }}">Catalago</a>
+                                                <a class="btn btn-info" href="{{ route('fotografos.show', $photographer->id) }}">Ver portafolio</a>
                                             </td>
                                         </tr>
                                     @endforeach
