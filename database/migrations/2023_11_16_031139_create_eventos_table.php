@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('address');
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->date('create_date');
             $table->time('create_time');
             $table->unsignedBigInteger('organizer_id');

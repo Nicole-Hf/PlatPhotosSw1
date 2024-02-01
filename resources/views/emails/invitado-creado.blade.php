@@ -92,11 +92,11 @@
                 <p><strong>Hora:</strong>{{ $invitacion->eventTime }}</p>
             </div>
 
-            <div class="qr-code">
+            {{-- <div class="qr-code">
                 <h2>Presenta este código QR para ingresar al evento:</h2>
                 <!-- Coloca aquí la imagen del código QR generada -->
                 <img src="{{ url($invitacion->qr) }}" class="img-fluid rounded-start" alt="...">
-            </div>
+            </div> --}}
         </div>
 
         <div class="footer">
