@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\InvitacionEvent;
+use App\Mail\EventoFotografo;
 use App\Models\Assitant;
 use App\Models\Contratado;
 use App\Models\Evento;
@@ -11,6 +12,7 @@ use App\Models\Invitacion;
 use App\Models\User;
 use App\Notifications\InvitacionNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class InvitacionController extends Controller
 {
@@ -38,12 +40,26 @@ class InvitacionController extends Controller
      */
     public function store(Request $request, $fotografo_id)
     {
+        $evento = Evento::find($request->evento_id);
+        $fotografo = User::find($fotografo_id);
+
         $invitacion = Invitacion::create([
             'evento_id' => $request->evento_id,
             'fotografo_id' => $fotografo_id,
         ]);
 
         $this->makeInvitacionNotification($invitacion);
+
+        $invitacion = new \stdClass();
+        $invitacion->name = $fotografo->name;
+        $invitacion->title = $evento->title;
+        $invitacion->address = $evento->address;
+        $invitacion->date = $evento->create_date;
+        $invitacion->eventTime = $evento->create_time;
+        $invitacion->qr = $evento->qr;
+        $invitacion->eventoId = $evento->id;
+
+        Mail::to($fotografo->email)->send(new EventoFotografo($invitacion, $invitacion->qr, $invitacion));
 
         return redirect()->route('fotografos.index');
     }

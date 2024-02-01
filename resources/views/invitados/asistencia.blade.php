@@ -13,20 +13,20 @@
                             <div class="row g-0">
                                 <div class="col-md-8">
                                     <div class="card-body">
-                                        <h5 class="card-title text-center">Invitado:</h5>
+                                        <h5 class="card-title">Invitado:</h5>
                                         <p class="card-text text-center">{{ $asistencia->invitado->name }}</p>
-                                        <h5 class="card-title text-center">Fecha del Evento</h5>
+                                        <h5 class="card-title">Fecha del Evento</h5>
                                         <p class="card-text text-center">{{ $asistencia->evento->create_date }}</p>
-                                        <h5 class="card-title text-center">Hora del Evento</h5>
+                                        <h5 class="card-title">Hora del Evento</h5>
                                         <p class="card-text text-center">{{ $asistencia->evento->create_time }}</p>
-                                        <h5 class="card-title text-center">Lugar/Dirección</h5>
+                                        <h5 class="card-title">Lugar/Dirección</h5>
                                         <p class="card-text text-center">{{ $asistencia->evento->address }}</p>
-                                        <h5 class="card-title text-center">Organizado por:</h5>
+                                        <h5 class="card-title">Organizado por:</h5>
                                         <p class="card-text text-center">{{ $asistencia->evento->organizer->name }}</p>
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 @can('crear-evento')
-                                                    @if (!$asistencia->status)
+                                                    @if (Str::is('pending', $asistencia->status))
                                                         <form
                                                             action="{{ route('invitaciones.markAsistencia', $asistencia->id) }}"
                                                             method="POST" style="display: inline">

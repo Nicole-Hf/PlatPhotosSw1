@@ -92,7 +92,7 @@ class CatalogoController extends Controller
         $slug = $slug = Str::slug($request->file('path')->getClientOriginalName());
         $ruta = storage_path() . '/app/public/eventos/' . $nombre;
         Image::make($request->file('path'))
-            ->resize(1200, null, function ($constraint) {
+            ->resize(900, null, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
             })->insert(public_path('watermark.png'), 'center', 10, 10)->save($ruta);

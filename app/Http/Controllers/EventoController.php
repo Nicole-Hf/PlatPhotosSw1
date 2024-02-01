@@ -79,6 +79,18 @@ class EventoController extends Controller
             'evento_id' => $evento->id,
         ]);
 
+        // TODO: Crear codigo qr para enviar al fotografo
+        $imagen = Str::slug($evento->title . $evento->create_date) . '.png';
+        $filename = storage_path('app/public/codesqr/' . $imagen);
+        $url = 'storage/codesqr/' . $imagen;
+        $route = route('eventos.invitation', $evento->id);
+        $qr = QrCode::size(400)->format('png')->generate($route);
+        file_put_contents($filename, $qr);
+        
+        // Actualizar con los datos del qr
+        $evento->qr = $url;
+        $evento->save();
+
         return redirect()->route('eventos.index');
     }
 

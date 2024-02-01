@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('address');
             $table->text('description')->nullable();
+            $table->string('qr')->nullable();
             $table->date('create_date');
             $table->time('create_time');
             $table->unsignedBigInteger('organizer_id');

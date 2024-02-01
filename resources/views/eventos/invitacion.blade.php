@@ -7,13 +7,13 @@
         </div>
         <div class="section-body">
             <div class="col-lg-12">
-                <div class="row">
+                <div class="row justify-content-center">
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="row g-0">
                                 <div class="col-md-4">
-                                    <img src="{{ asset($evento->code_qr) }}" class="img-fluid rounded-start" alt="...">
-                                </div>
+                                    <img src="{{ asset($evento->qr) }}" class="img-fluid rounded-start" alt="...">
+                                </div> 
                                 <div class="col-md-8">
                                     <div class="card-body">
                                         <h5 class="card-title">Fecha del Evento</h5>
@@ -28,7 +28,7 @@
                                         <p class="card-text">{{ $evento->organizer->name }}</p>
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <a href="{{ route('eventos.download', $evento->id)}}" class="btn btn-primary">Descargar Qr</a>
+                                                {{-- <a href="{{ route('eventos.download', $evento->id)}}" class="btn btn-primary">Descargar Qr</a> --}}
                                                 @can('crear-compra')
                                                 <a href="{{ route('catalogos.invitados', $evento->catalogo->id)}}" class="btn btn-primary">Ver Catálogo</a>
                                                 @endcan
